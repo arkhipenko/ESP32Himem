@@ -1,6 +1,6 @@
 # ESP32 Himem
 ### Access to HIMEM area on ESP32 microcontrollers from Arduino Core as Stream
-#### Version 0.0.1: 2021-07-14 
+#### Version 0.0.2: 2021-07-14 
 
 ### OVERVIEW:
 Some ESP32 modules come equipped with PSRAM, and some even have 8 MB of it.
@@ -22,7 +22,7 @@ Because of the memory remapping the access is rather slow (especially random), s
     ESP32Himem();
     virtual ~ESP32Himem();
       
-    virtual int       begin();
+    virtual int       begin(size_t ranges); // 1-8, default 8
     
     virtual int       available();
     virtual int       read();

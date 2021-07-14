@@ -26,7 +26,7 @@ class ESP32Himem : public Stream {
     ESP32Himem();
     virtual ~ESP32Himem();
   
-    virtual int       begin();
+    virtual int       begin(size_t ranges = ESP32HIMEM_RANGES);
     
     virtual int       available() { return ( iPosition > iSize-1 ? 0 : 1 ); };
     virtual int       read();
@@ -46,13 +46,13 @@ class ESP32Himem : public Stream {
     
     size_t            iSize;
     size_t            iPosition;
-    // size_t            iBlock;
     uint8_t*          iPtr;
     
     esp_himem_handle_t      iHandle;
     esp_himem_rangehandle_t iRange;   //Handle for the actual RAM.
     uint8_t*          iBase;
     size_t            iBufferSize;
+    size_t            iRanges;
 };
 
 
@@ -75,8 +75,9 @@ ESP32Himem::~ESP32Himem() {
   lesp_himem_free(iHandle);
 }
 
-int ESP32Himem::begin() {
+int ESP32Himem::begin(size_t ranges) {
 
+  iRanges = constrain(ranges, 1, 8);
   lesp_himem_init();
 
   iSize = esp_himem_get_phys_size();
@@ -87,7 +88,7 @@ int ESP32Himem::begin() {
   if ( rc != ESP_OK ) return ESP32HIMEM_ERR_ALLOC;
   // Serial.printf("begin: lesp_himem_alloc OK\n");
   
-  rc = lesp_himem_alloc_map_range(ESP_HIMEM_BLKSZ * ESP32HIMEM_RANGES, &iRange);
+  rc = lesp_himem_alloc_map_range(ESP_HIMEM_BLKSZ * iRanges, &iRange);
   if ( rc != ESP_OK ) return ESP32HIMEM_ERR_ALLOC;
   // Serial.printf("begin: lesp_himem_alloc_map_range OK\n");
   
@@ -118,7 +119,7 @@ int ESP32Himem::remap(size_t pos, bool force) {
       // Serial.printf("remap: lesp_himem_unmap OK\n");
     }
 
-    iBufferSize = ESP_HIMEM_BLKSZ * ESP32HIMEM_RANGES;
+    iBufferSize = ESP_HIMEM_BLKSZ * iRanges;
     
     // Serial.printf("remap: iBufferSize %d\n", iBufferSize);
     
