@@ -1,0 +1,31 @@
+#######################################
+# Syntax Coloring Map For TaskManager
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ESP32Himem	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+physSize	KEYWORD2
+bufferSize	KEYWORD2
+bufferIndex	KEYWORD2
+pointer	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+
+ESP32HIMEM_OK	LITERAL1
+ESP32HIMEM_NOT_PRESENT	LITERAL1
+ESP32HIMEM_OUT_OF_BOUND	LITERAL1
+ESP32HIMEM_ERR_ALLOC	LITERAL1
+ESP32HIMEM_ERR_UNMAP	LITERAL1
+ESP32HIMEM_ERR_MAP	LITERAL1
+
+#######################################
+

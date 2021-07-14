@@ -1,0 +1,22 @@
+{
+  "name": "ESP32Himem",
+  "keywords": "esp32, memory, psram, himem",
+  "description": "Access to HIMEM area on ESP32 microcontrollers from Arduino Core as Stream",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/arkhipenko/ESP32Himem"
+  },
+  "authors":
+  [
+    {
+      "name": "Anatoli Arkhipenko",
+      "email": "arkhipenko@hotmail.com",
+      "url": "https://github.com/arkhipenko",
+      "maintainer": true
+    }
+  ],
+  "version": "0.0.1",
+  "frameworks": "arduino",
+  "platforms": "espressif8266, espressif32"
+}
