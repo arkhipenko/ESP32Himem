@@ -34,7 +34,7 @@ Because of the memory remapping the access is rather slow (especially random), s
     virtual size_t    physSize()};
     virtual int       seek(size_t position);
     virtual uint8_t&  operator[](size_t pos);
-    size_t            bufferSize() { return iBufferSize; };
+    size_t            bufferSize();
     size_t            bufferIndex();
     uint8_t*          pointer();
 ### Note of direct memory access:
