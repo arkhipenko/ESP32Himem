@@ -37,15 +37,21 @@ Because of the memory remapping the access is rather slow (especially random), s
     size_t            bufferSize();
     size_t            bufferIndex();
     uint8_t*          pointer();
-### Note of direct memory access:
+### Note on direct memory access:
 
-After your index been positioned and mapped, it is placed as close to the beginning of mapped memory area as possible (given you have to observe the 32KB alignments) and mapped to an area of 262144 bytes long.
+After your index been positioned and mapped, it is placed as close to the beginning of mapped memory area as possible (given you have to observe the 32KB alignments) and mapped to an area of up to 262144 bytes long.
 
-Technically you can address (read/write) that to that area directly.
+Technically you can address that memory region directly and read/write to that area directly as you would to regular RAM.
 
 Your data is located at `pointer()` position in memory.
 
 You have `bufferSize() - bufferIndex()` bytes of memory available to the **right** of the pointer and `bufferIndex()` bytes available to the **left** of the pointer. **Be careful.** 
+
+### Note on PSRAM
+
+The address space used by PSRAM API and HIMEM API is the same, so allocating a window of memory to look into HIMEM area will take away from the available PSRAM. Arduino is configured to use up to 8 x 32KB memory blocks to access HIMEM. In most cases you only need one, so start `himem.begin(1)` to allocate just 32K and lose *only* 32K of PSRAM. 8 ranges will allocate 262144 bytes and that's how much PSRAM you will lose as well. 
+
+**ALSO:** please initialize HIMEM before doing any PSRAM memory allocations via `ps_malloc`. I have witnessed values changing as the HIMEM window was allocated on top of previously allocated PSRAM memory range. **Be careful.** 
 
 ### Benchmarking
 
