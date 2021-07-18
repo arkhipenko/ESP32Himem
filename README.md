@@ -41,13 +41,13 @@ Because of the memory remapping the access is rather slow (especially random), s
 
 ### Note on direct memory access:
 
-After your index been positioned and mapped, it is placed as close to the beginning of mapped memory area as possible (given you have to observe the 32KB alignments) and mapped to an area from 32,768 of up to 262,144 bytes long.
+After your index been positioned and mapped, it is placed inside the mapped memory area according to your mapping strategy option of the `himem.begin()` method (see below). Range allocation has to observe the 32KB alignments and be mapped to an area from 32,768 of up to 262,144 bytes long.
 
 Technically you can address that memory region directly and read/write to that area directly as you would to regular RAM.
 
-Your data is located at `pointer()` position in memory.
+Your data is located at `pointer()` position in physical address space of ESP32 memory.
 
-You have `bufferSize() - bufferIndex()` bytes of memory available to the **right** of the pointer and `bufferIndex()` bytes available to the **left** of the pointer. **Be careful.** 
+You have `bufferSize() - bufferIndex() - 1` bytes of memory available to the **right** of the pointer and `bufferIndex()` bytes available to the **left** of the pointer. **Be careful.** 
 
 
 ### Note on PSRAM
@@ -69,7 +69,6 @@ By default, ESP32Himem allocates the maximum available number of memory ranges (
 2. Map anywhere within the full range. The "catch" here is that the pointer could be anywhere within the range, including at the very far right end of it, which makes use of pointer less efficient, but requires fewer remaps, so improves performance slightly. 
 
    To use this remap strategy start ESP32Himem with `himem(8, ESP32HIMEM_REMAP_LESS);` option.
-   
 
 ### Note on Out-of-Bounds checking
 
