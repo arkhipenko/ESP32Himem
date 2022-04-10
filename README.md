@@ -110,7 +110,9 @@ See example for details.
 
 Instead of including `<ESP32Himem.h>` into your Arduino sketches, include `<ESP32HimemDeclarations.h"` instead.
 In your project source folder, create a ile `ESP32Himem.cpp` with this one line of contents:
+
 ESP32Himem.cpp:
+
 #include <ESP32Himem.h>
 
 
