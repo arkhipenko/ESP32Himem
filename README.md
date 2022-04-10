@@ -1,6 +1,6 @@
 # ESP32 Himem
 ### Access to HIMEM area on ESP32 microcontrollers from Arduino Core as Stream
-#### Version 0.0.3: 2021-07-18 
+#### Version 0.0.4: 2022-04-09 
 
 ### OVERVIEW:
 Some ESP32 modules come equipped with PSRAM, and some even have 8 MB of it.
@@ -105,3 +105,15 @@ Stop  time: 21827
 ```
 
 See example for details. 
+
+### How to use with PlatformIO
+
+Instead of including `<ESP32Himem.h>` into your Arduino sketches, include `<ESP32HimemDeclarations.h"` instead.
+In your project source folder, create a ile `ESP32Himem.cpp` with this one line of contents:
+ESP32Himem.cpp:
+#include <ESP32Himem.h>
+
+
+
+That's it. 
+
